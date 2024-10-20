@@ -1,0 +1,189 @@
+<doctype! html>
+<html>
+<head>
+    <title>Website Pop Mart</title>
+    <link rel="stylesheet" href="css/cssproject.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <img src="foto/logo.jpg" alt="logo" width="90px" height="30px" style="float: left; margin-top: 15px; margin-left: 5px;" >
+      <a href="homee.html" style="margin-top: 7px;">Home</a>
+      <a href="about.html" style="margin-top: 7px;">About</a>
+      <div class="dropdown">
+        <button class="dropbtn" style="margin-top: 7px;">Series</button>
+        <div class="dropdown-content">
+          <a href="series_hirono.html">Hirono</a>
+          <a href="series_dimoo.html">DIMOO</a>
+          <a href="friends.html">Friends</a>
+        </div>
+      </div>
+    </div>
+</header>
+
+<main>
+  <section style="height: 100%; overflow: scroll;">
+  <div class="column-1">
+    <div class="w3-content" style="max-width:500px; margin-top: 20px; margin-left: 75px">
+      <img class="mySlides" src="foto/shelterfull.jpeg" style="width:100%;display:none">
+      <img class="mySlides" src="foto/shelterbox.jpeg" style="width:100%">
+      <img class="mySlides" src="foto/shelterset.jpeg" style="width:100%;display:none">
+    
+      <div class="w3-row-padding w3-section" style="float: left;">
+        <div class="w3-col s4">
+          <img class="demo w3-opacity w3-hover-opacity-off" src="foto/shelterfull.jpeg" style="width:30%;cursor:pointer; float: left;" onclick="currentDiv(1)">
+        </div>
+        <div class="w3-col s4">
+          <img class="demo w3-opacity w3-hover-opacity-off" src="foto/shelterbox.jpeg" style="width:30%;cursor:pointer; float: left;" onclick="currentDiv(2)">
+        </div>
+        <div class="w3-col s4">
+          <img class="demo w3-opacity w3-hover-opacity-off" src="foto/shelterset.jpeg" style="width:30%;cursor:pointer; float: left;" onclick="currentDiv(3)">
+        </div>
+      </div>
+    </div>
+  </div>  
+  
+    <div class="container">
+      <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+      <img id="expandedImg" style="width:50%">
+    </div>
+
+    
+    <script>
+      function currentDiv(n) {
+        showDivs(slideIndex = n);
+      }
+      
+      function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+        }
+        x[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " w3-opacity-off";
+      }
+      </script>
+          
+  <div class="column">
+    <h2>Hirono Shelter Series</h2>
+    <h3 style="color:rgb(185, 5, 5)">$ 11.90</h3>
+    <p>Size</p>
+    <p class="box">
+      <input type="submit" name="buy" value="Single box" onclick="alert('cant wait to see you')" style="width: 120px; 
+      height: 40px;
+      border-radius: 0; border: 1px; margin-right: 10px;">
+      <input type="submit" name="buy" value="Whole set" onclick="alert('cant wait to see you')" style="width: 120px; 
+      height: 40px; 
+      border-radius: 0; border: 1px">
+    </p>
+    <p>Quantity</p>
+    <div class="qty-input">
+      <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
+      <input class="product-qty" type="number" name="product-qty" min="0" max="10" value="1">
+      <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+      <script>
+        var QtyInput = (function () {
+        var $qtyInputs = $(".qty-input");
+
+        if (!$qtyInputs.length) {
+          return;
+        }
+
+        var $inputs = $qtyInputs.find(".product-qty");
+        var $countBtn = $qtyInputs.find(".qty-count");
+        var qtyMin = parseInt($inputs.attr("min"));
+        var qtyMax = parseInt($inputs.attr("max"));
+
+        $inputs.change(function () {
+          var $this = $(this);
+          var $minusBtn = $this.siblings(".qty-count--minus");
+          var $addBtn = $this.siblings(".qty-count--add");
+          var qty = parseInt($this.val());
+
+          if (isNaN(qty) || qty <= qtyMin) {
+            $this.val(qtyMin);
+            $minusBtn.attr("disabled", true);
+          } else {
+            $minusBtn.attr("disabled", false);
+            
+            if(qty >= qtyMax){
+              $this.val(qtyMax);
+              $addBtn.attr('disabled', true);
+            } else {
+              $this.val(qty);
+              $addBtn.attr('disabled', false);
+            }
+          }
+        });
+
+        $countBtn.click(function () {
+          var operator = this.dataset.action;
+          var $this = $(this);
+          var $input = $this.siblings(".product-qty");
+          var qty = parseInt($input.val());
+
+          if (operator == "add") {
+            qty += 1;
+            if (qty >= qtyMin + 1) {
+              $this.siblings(".qty-count--minus").attr("disabled", false);
+            }
+
+            if (qty >= qtyMax) {
+              $this.attr("disabled", true);
+            }
+          } else {
+            qty = qty <= qtyMin ? qtyMin : (qty -= 1);
+            
+            if (qty == qtyMin) {
+              $this.attr("disabled", true);
+            }
+
+            if (qty < qtyMax) {
+              $this.siblings(".qty-count--add").attr("disabled", false);
+            }
+          }
+
+          $input.val(qty);
+        });
+      })();
+      </script>
+    </div>
+
+    <!--quantity-->
+    <p class="buy">
+        <input type="submit" name="buy" value="Add to cart" onclick="alert('cant wait to see you')" style="width: 120px; 
+        height: 40px; background-color: black; color: white;
+        border-radius: 0; margin-right: 10px;">
+        <input type="submit" name="buy" value="Buy now!" onclick="alert('cant wait to see you')" style="width: 120px; 
+        height: 40px; background-color: rgb(185, 5, 5); color: white;
+        border-radius: 0; border: 0;">
+    </p>
+    <hr>
+    <h3>Detail</h3>
+    <p>Specification: 12Basic+1 hidden<br>
+      Material: PVC/Paper<br>
+      Height: 8cm <br>
+      Package size: 12cm*8cm*8cm</p>
+  </div>
+</div>
+</section>
+</main>
+<hr>
+    <footer height="50%">
+        <article class="sosmed">
+          <h2>Follow us!</h2>
+            <a href="https://www.instagram.com/popmartglobal?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="fa fa-instagram">
+              <img src="foto/insta.JPG" width="50px" height="50px"></a>
+            <a href="https://www.facebook.com/popmartglobal?_rdc=1&_rdr" class="fa fa-facebook"><img src="foto/fb.jpeg" width="50px" height="50px"></a>
+            <a href="https://x.com/POPMARTGlobal" class="fa fa-twitter"><img src="foto/twt.jpg" width="50px" height="50px"></a>
+        </article>
+        <hr>
+        <p style="text-align: center; height: 10%;">&copy; keren</p>
+      </footer>
